@@ -112,7 +112,8 @@ class Player:
         if direction in current_field.adjacent_fields:
             new_position = current_field.adjacent_fields[direction]
             self.position = new_position
-            print(f"Player moved to tile {self.position.name} \n")
+            print(f"Player moved to tile {self.position.name} \n\n")
+            print("--------------------------------------------\n\n")
 
             self.check_field_type()
 
@@ -131,7 +132,7 @@ class Player:
             else:
                 print("the player has reached the Fountain! However, it has already been used.")
         elif field_type == "Shop":
-            print("The player has reached an empty field. You can continue exploring.")
+            print("The player has stopped in tavern.")
             self.enter_shop()
         elif field_type == "Goblin Hatchery":
             if self.position.monster is not None:
@@ -207,7 +208,7 @@ class Player:
         if roll <= winning_chance:
             if Monster == Dragon:
                 print("You defeated the mighty Dragon! Congratulations, you won the game!")
-                print(f"TYour final hp was: {player.health}" )
+                print(f"Your final hp was: {player.health}" )
                 print(f"It took you: {player.turnnumber} turns")
                 exit()
 
@@ -227,13 +228,33 @@ class Player:
             else:
                 print(f"Your hp dropped to  {self.health}.")
 
-
-
-
 Player1_shop = Shop()
-player= Player(50,50,10,2,C1,0,Player1_shop)
+player= Player(50,50,10,2,A1,0,Player1_shop)
+
+def draw_map(player):
+    map_layout = [
+        [D1, D2, D3, D4],
+        [C1, None, None, None],
+        [B1, B2, B3, B4],
+        [None, None, None, A1]
+    ]
+
+    print("MAP:")
+    for row in map_layout:
+        row_display = ""
+        for field in row:
+            if field is None:
+                row_display += "   |"
+            elif field == player.position:
+                row_display += " P |"
+            else:
+                row_display += f" {field.name} |"
+        print(row_display)
+        print("-" * len(row_display))
+
 print(f"Start location: {player.position}")
 player.show_possible_moves()
+
 
 
 while True:
@@ -250,6 +271,7 @@ while True:
     else:
         print("Wrong direction, you can't move into the wall.")
 
+    draw_map(player)
 
 
 
