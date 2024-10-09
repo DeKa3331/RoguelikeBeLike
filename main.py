@@ -180,6 +180,7 @@ class Player:
 
     def show_shop(self):
         print("Avaible items:")
+        print(f"Your gold: {self.gold}")
         for item_name, item_info in self.shop.items.items():
             print(f"{item_name}: Power +{item_info['power']}, Cost: {item_info['cost']}, Remaining stock: {item_info['stock']}")
 
@@ -252,6 +253,10 @@ def draw_map(player):
         print(row_display)
         print("-" * len(row_display))
 
+
+
+
+draw_map(player)
 print(f"Start location: {player.position}")
 player.show_possible_moves()
 
